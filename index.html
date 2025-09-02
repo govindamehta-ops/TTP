@@ -559,5 +559,37 @@
     </div>
 
     <script src="app.js"></script>
+<!-- Supabase Auth snippet -->
+<script type="module">
+  import { createClient } from
+    'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+
+  // 1️⃣  Paste your keys between the quotes
+  const supabase = createClient(
+    'https://iyojtdlsyxymmkutmwek.supabase.co',      // <— replace this
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml5b2p0ZGxzeXh5bW1rdXRtd2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY3MjMxNDQsImV4cCI6MjA3MjI5OTE0NH0.hUqoP2EpX26M5EQxEdHk2DHWUrkfAFnTFBhmDBkkWxk'    // <— and this
+  );
+
+  /* ---------- SIGN-UP ---------- */
+  async function signUp() {
+    const email    = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const { error } = await supabase.auth.signUp({ email, password });
+    alert(error ? error.message : 'Check your email to confirm!');
+  }
+
+  /* ---------- LOG-IN ---------- */
+  async function logIn() {
+    const email    = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const { error } = await supabase.auth
+      .signInWithPassword({ email, password });
+
+    if (error) alert(error.message);
+    else       window.location.href = '/dashboard.html';  // change if needed
+  }
+</script>
 </body>
 </html>
